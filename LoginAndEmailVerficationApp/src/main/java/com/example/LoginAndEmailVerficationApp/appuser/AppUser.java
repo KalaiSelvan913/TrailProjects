@@ -1,6 +1,6 @@
-package com.example.demo.appuser;
+package com.example.LoginAndEmailVerficationApp.appuser;
 
-
+import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -20,42 +19,41 @@ import java.util.Collections;
 @Entity
 public class AppUser implements UserDetails {
 
-
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	@SequenceGenerator(
+    @Id
+    @SequenceGenerator(
             name = "student_sequence",
             sequenceName = "student_sequence",
             allocationSize = 1
     )
-    @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "student_sequence"
     )
     private Long id;
-    private String firstName;
-    private String lastName;
+    private String name;
+    private String username;
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
     private AppUserRole appUserRole;
-    private Boolean locked = false;
-    private Boolean enabled = false;
+    private Boolean locked;
+    private Boolean enabled;
 
 
-    public AppUser(String firstName,
-                   String lastName,
+    public AppUser(String name,
+                   String username,
                    String email,
                    String password,
-                   AppUserRole appUserRole) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+                   AppUserRole appUserRole,
+                   Boolean locked,
+                   Boolean enabled) {
+        this.name = name;
+        this.username = username;
         this.email = email;
         this.password = password;
         this.appUserRole = appUserRole;
+        this.locked = locked;
+        this.enabled = enabled;
     }
 
     @Override
@@ -72,15 +70,7 @@ public class AppUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
+        return username;
     }
 
     @Override
