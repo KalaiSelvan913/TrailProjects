@@ -1,5 +1,7 @@
-jwt:
-  expiration: 1000*60*30
+#Server Configuration
+server:
+  port: 8080   #Server Port
+#Datasource Configuration for MYSQL
 spring:
   datasource:
     username: root
@@ -15,4 +17,10 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
     show-sql: true
+#CORS Congiurations
+cors:
+  allowed-origins: "*"
+  allowed-methods: "GET, POST, PUT, DELETE, OPTIONS"
+  allowed-headers: "*"
+  exposed-headers: "Authorization"
 
