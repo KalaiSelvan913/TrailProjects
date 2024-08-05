@@ -1,6 +1,6 @@
 #Server Configuration
 server:
-  port: 8080   #Server Port
+  port: ${SPRING_PORT:8080}   #Server Port
 #Datasource Configuration for MYSQL
 spring:
   datasource:
@@ -10,8 +10,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-#      ddl-auto: create-drop
-      ddl-auto: update
+      ddl-auto: create-drop
+#      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
